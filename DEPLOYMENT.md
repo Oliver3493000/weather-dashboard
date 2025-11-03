@@ -67,10 +67,13 @@
    在 "Configure Project" 页面：
    
    - **Project Name**: `weather-dashboard`（可自定义）
-   - **Framework Preset**: Vercel 会自动检测为 "Vite"
+   - **Framework Preset**: 选择 "Other" 或 "Vite"
    - **Root Directory**: `./`（保持默认）
-   - **Build Command**: `pnpm build`（保持默认）
-   - **Output Directory**: `dist`（保持默认）
+   - **Build Command**: `pnpm build`
+   - **Output Directory**: `dist`
+   - **Install Command**: `pnpm install`
+   
+   **重要提示**：项目已包含 `vercel.json` 配置文件，Vercel 会自动使用这些配置。
 
 4. **配置环境变量**
    

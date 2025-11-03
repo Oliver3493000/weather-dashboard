@@ -34,7 +34,7 @@ export default function Home() {
     initializeDefaultCities();
     setFavorites(getFavorites());
     
-    // Load default city (Beijing)
+    // Load default city (Beijing) - silent fail on initial load
     const loadDefaultCity = async () => {
       setIsLoading(true);
       try {
@@ -43,7 +43,8 @@ export default function Home() {
         setForecast(data.forecast);
         setBackgroundGradient(getWeatherGradient(data.current.main, data.current.icon));
       } catch (error) {
-        console.error('Failed to load default city:', error);
+        // Silent fail on initial load - don't show error to user
+        console.log('Initial load failed, waiting for user to search');
       } finally {
         setIsLoading(false);
       }
@@ -60,9 +61,11 @@ export default function Home() {
       setCurrentWeather(data.current);
       setForecast(data.forecast);
       setBackgroundGradient(getWeatherGradient(data.current.main, data.current.icon));
-      toast.success(`Weather data loaded for ${data.current.city}`);
+      toast.success(`Weather loaded for ${data.current.city}`);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Failed to fetch weather data');
+      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch weather data';
+      toast.error(errorMessage);
+      console.error('Search error:', error);
     } finally {
       setIsLoading(false);
     }
